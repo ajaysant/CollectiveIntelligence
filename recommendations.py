@@ -16,7 +16,7 @@ critics = {"Lisa Rose": {"Lady in the water": 2.5, "Snakes on a plane": 3.5, "Ju
            "Toby": {"Snakes on a plane": 4.5, "Superman Returns": 4.0, "You, Me and Dupree": 1.0}
            }
 
-print(critics["Toby"]["Snakes on a plane"])
+print("\nRating given by Toby to movie Snakes on a plane = " + str(critics["Toby"]["Snakes on a plane"]))
 
 print(1 / (1 + sqrt(pow(5 - 4, 2) + pow(4 - 1, 2))))
 
@@ -33,9 +33,10 @@ def sim_distance(prefs, person1, person2):
     if len(si) == 0: return 0
 
     # Add up the squares of all the differences
-    sum_of_squares = sum([pow(prefs[person1][item] - prefs[person2][item], 2)
-                          for item in prefs[person1] if item in prefs[person2]])
+    sum_of_squares = sqrt(sum([pow(prefs[person1][item] - prefs[person2][item], 2)
+                               for item in prefs[person1] if item in prefs[person2]]))
+
     return 1 / (1 + sum_of_squares)
 
 
-print("Euclidean Distance = " + str(sim_distance(critics, "Lisa Rose", "Gene Seymour")))
+print("\nEuclidean Distance between Lisa and Gene = " + str(sim_distance(critics, "Lisa Rose", "Michael Phillips")))
