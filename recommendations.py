@@ -30,7 +30,8 @@ def sim_distance(prefs, person1, person2):
             si[item] = 1
 
     # If they have no ratings in common, return 0
-    if len(si) == 0: return 0
+    if len(si) == 0:
+        return 0
 
     # Add up the squares of all the differences
     sum_of_squares = sqrt(sum([pow(prefs[person1][item] - prefs[person2][item], 2)
@@ -39,4 +40,44 @@ def sim_distance(prefs, person1, person2):
     return 1 / (1 + sum_of_squares)
 
 
-print("\nEuclidean Distance between Lisa and Gene = " + str(sim_distance(critics, "Lisa Rose", "Michael Phillips")))
+print("\nEuclidean Distance between Lisa and Gene = " + str(sim_distance(critics, "Lisa Rose", "Jack Matthews")))
+
+
+# Returns the Pearson correlation coefficient for p1 and p2
+def sim_pearson(prefs, p1, p2):
+    # Get the the list of mutually rated items
+    si = {}
+    for item in prefs[p1]:
+        if item in prefs[p2]:
+            si[item] = 1
+
+    # Find the number of elements
+    n = len(si)
+
+    # If there are no ratings in common, return 0
+    if n == 0:
+        return 0
+
+    # Add up all the preferences
+    sum1 = sum([prefs[p1][it] for it in si])
+    sum2 = sum([prefs[p2][it] for it in si])
+
+    # Sum up the squares
+    sum1_sq = sum([pow(prefs[p1][it], 2) for it in si])
+    sum2_sq = sum([pow(prefs[p2][it], 2) for it in si])
+
+    # Sum up the products
+    p_sum = sum([prefs[p1][it] * prefs[p2][it] for it in si])
+
+    # Calculate the Pearson Score
+    num = p_sum - (sum1 * sum2 / n)
+    den = sqrt((sum1_sq - pow(sum1, 2) / n) * (sum2_sq - pow(sum2, 2) / n))
+    if den == 0:
+        return 0
+
+    r = num / den
+
+    return r
+
+
+print("\nPearson Correlation Score = " + str(sim_pearson(critics, "Lisa Rose", "Jack Matthews")))
