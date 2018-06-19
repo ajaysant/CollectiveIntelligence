@@ -81,3 +81,4 @@ def sim_pearson(prefs, p1, p2):
 
 
 print("\nPearson Correlation Score = " + str(sim_pearson(critics, "Lisa Rose", "Jack Matthews")))
+
