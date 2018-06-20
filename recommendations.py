@@ -82,3 +82,13 @@ def sim_pearson(prefs, p1, p2):
 
 print("\nPearson Correlation Score = " + str(sim_pearson(critics, "Lisa Rose", "Jack Matthews")))
 
+
+# Returns the best matches for person from the prefs dictionary
+def topMatches(prefs, person, n=5, similarity=sim_pearson):
+    scores = [(similarity(prefs, person, other), other) for other in prefs if other != person]
+    scores.sort()
+    scores.reverse()
+    return scores[0:n]
+
+
+print("\nTop 4 reviewers = " + str(topMatches(critics, "Lisa Rose", n=4)))
